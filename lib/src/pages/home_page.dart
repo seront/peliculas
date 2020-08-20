@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:peliculas/src/providers/peliculas_provider.dart';
 import 'package:peliculas/src/widgets/card_swiper_widget.dart';
@@ -21,8 +22,10 @@ class HomePage extends StatelessWidget {
         ),
         body: Container(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               _swiperTarjetas(),
+              _footer(context)
             ],
           ),
         ));
@@ -41,6 +44,30 @@ class HomePage extends StatelessWidget {
               height: 400.0, child: Center(child: CircularProgressIndicator()));
         }
       },
+    );
+  }
+
+  Widget _footer(context) {
+    return Container(
+      width: double.infinity,
+      child: Column(
+        children: <Widget>[
+          Text('Populares', style: Theme.of(context).textTheme.subhead),
+          FutureBuilder(
+            future: peliculasProvider.getPopulares(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              List<Widget> titulos = [];
+              for (var item in snapshot.data) {
+                Text titulo = Text(item.originalTitle);
+                titulos.add(titulo);
+              }
+              return Row(
+                children: titulos,
+              );
+            },
+          ),
+        ]
+      ),
     );
   }
 }
