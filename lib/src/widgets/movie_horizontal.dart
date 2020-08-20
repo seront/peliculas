@@ -39,7 +39,7 @@ class MovieHorizontal extends StatelessWidget {
   }
 
   Widget _tarjeta(BuildContext context, Pelicula pelicula, double displaySize){
-    return Container(
+    final tarjeta = Container(
         margin: EdgeInsets.only(right: 15.0),
         child: Column(children: <Widget>[
           ClipRRect(
@@ -58,6 +58,14 @@ class MovieHorizontal extends StatelessWidget {
             style: Theme.of(context).textTheme.caption,
           )
         ],)
+      );
+
+      return GestureDetector(
+        child: tarjeta,
+        onTap: (){
+          print('ID de la pelicula ${pelicula.id}');
+          Navigator.pushNamed(context, 'detalle', arguments: pelicula);
+        },
       );
   }
 
