@@ -46,7 +46,7 @@ class Actor {
   }
 
   getFoto(){
-    if (profilePath == 'null') {
+    if (profilePath == 'null' || profilePath == null) {
       return 'https://ramenparados.com/wp-content/uploads/2019/03/no-avatar-png-8.png';
     } else {
       return 'https://image.tmdb.org/t/p/w500/$profilePath';
