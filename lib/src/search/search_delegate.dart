@@ -4,25 +4,40 @@ class DataSearch extends SearchDelegate{
   @override
   List<Widget> buildActions(BuildContext context) {
     // Las cciones de nuestro AppBar
-    return null;
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: (){
+          print('Click');
+          query = '';
+        },
+        ),
+    ];
   }
 
   @override
   Widget buildLeading(BuildContext context) {
     // Icono a la izquierda del AppBar
-    return null;
+    return IconButton(icon: AnimatedIcon(
+      icon: AnimatedIcons.menu_arrow, 
+      progress: transitionAnimation
+      ), 
+      onPressed: (){
+        close(context, null);
+      }
+      );
   }
 
   @override
   Widget buildResults(BuildContext context) {
     // Crea los resultados que vamos a mostrar
-    return null;
+    return Container();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     // Son las Sugerencias que aparecen cuando la persona escribe
-    return null;
+    return Container();
   }
 
 }
