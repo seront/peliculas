@@ -15,17 +15,32 @@ class CardSwiperWidget extends StatelessWidget {
       child: Swiper(
           layout: SwiperLayout.STACK,
           itemBuilder: (BuildContext context, int index) {
-            return ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: FadeInImage(
-                  placeholder: AssetImage('assets/img/no-image.jpg'),
-                  image: NetworkImage(peliculas[index].getPosterImg()),
-                  fit: BoxFit.cover,
-                ));
+            return crearTarjeta(context, peliculas[index]);
           },
           itemCount: peliculas.length,
           itemWidth: _screenSize.width * 0.7,
           itemHeight: _screenSize.height * 0.5),
+    );
+  }
+
+  Widget crearTarjeta(BuildContext context, Pelicula pelicula) {
+    pelicula.uniqueID = '${pelicula.id}-tarjeta';
+    final tarjeta = Hero(
+        tag: pelicula.uniqueID,
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: FadeInImage(
+              placeholder: AssetImage('assets/img/no-image.jpg'),
+              image: NetworkImage(pelicula.getPosterImg()),
+              fit: BoxFit.cover,
+            )));
+
+    return GestureDetector(
+      child: tarjeta,
+      onTap: () {
+        print('ID de la pelicula ${pelicula.id}');
+        Navigator.pushNamed(context, 'detalle', arguments: pelicula);
+      },
     );
   }
 }
